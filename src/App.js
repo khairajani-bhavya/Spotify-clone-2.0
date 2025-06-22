@@ -1,25 +1,46 @@
-import { Route, Routes, Navigate } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import CalendarPage from "./pages/CalendarPage";
-import KanbanPage from "./pages/KanbanPage";
-import ThemeProvider from "./theme/ThemeProvider";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+
+import AudioPlayer from './components/AudioPlayer';
+import RightBar from './components/RightBar';
+import Home from './pages/Home';
+import Search from './pages/Search';
+import Album from './pages/Album';
+import Genre from './pages/Genre';
+import Playlist from './pages/Playlist';
 import './App.css';
 
-export default function App() {
+const App = () => {
   return (
-    <ThemeProvider>
-      <div className="app">
-        <Sidebar />
-        <main className="content">
-          <Routes>
-            <Route path="/" element={<Navigate to="/dashboard" />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/kanban" element={<KanbanPage />} />
-          </Routes>
-        </main>
-      </div>
-    </ThemeProvider>
+    <div className="app">
+      {/* Left Sidebar */}
+      <aside className="sidebar">
+        <Navbar />
+      </aside>
+
+      {/* Main Routed Pages */}
+      <main className="main-content">
+         
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/album/:id" element={<Album />} />
+          <Route path="/genre/:genre" element={<Genre />} />
+          <Route path="/playlist/:id" element={<Playlist />} />
+
+        </Routes>
+      </main>
+
+      {/* Right Sidebar */}
+      <aside className="right-bar">
+        <RightBar />
+      </aside>
+
+      {/* Bottom Player */}
+      <AudioPlayer />
+    </div>
   );
-}
+};
+
+export default App;
